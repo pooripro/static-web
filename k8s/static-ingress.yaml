@@ -1,0 +1,20 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+  name: static-web
+  namespace: student75-static-web
+spec:
+  rules:
+  - host: dev.opsta.net
+    http:
+      paths:
+      - path: /student75/static(/|$)(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: static-web
+            port:
+              number: 80
